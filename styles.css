@@ -310,7 +310,7 @@ html.intro .intro-curtain {
 .form-status { color: var(--muted); font-size: .96rem; max-width: 30em; }
 
 /* Big headlines: use the sturdier low-optical-size cut so thin strokes (the bar of the t) stay visible in gold. */
-.hero h1, .page-top h1 { font-optical-sizing: none; font-variation-settings: "opsz" 16; font-weight: 500; }
+.hero h1, .page-top h1, .careers-cta h2 { font-optical-sizing: none; font-variation-settings: "opsz" 16; font-weight: 500; }
 
 /* Careers call + page top */
 .careers-cta { overflow: hidden; text-align: center; }
