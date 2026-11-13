@@ -148,7 +148,7 @@ html.intro .intro-curtain {
 }
 .rosette svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform; animation: spin var(--dur, 120s) linear infinite; }
 .rosette svg:nth-child(even) { animation-direction: reverse; }
-.rosette path { fill: none; stroke: var(--gold); stroke-width: .55; vector-effect: non-scaling-stroke; opacity: .7; }
+.rosette path { fill: none; stroke: var(--gold); stroke-width: .42; opacity: .7; }
 .rosette path.draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: engrave 3s cubic-bezier(.5,.1,.2,1) forwards; }
 @keyframes engrave { to { stroke-dashoffset: 0; } }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -200,19 +200,25 @@ html.intro .intro-curtain {
 .glow:hover::before { opacity: 1; }
 
 /* Markets */
-.market { display: grid; grid-template-columns: 92px minmax(0, 4fr) minmax(0, 6fr); gap: 16px 40px; align-items: center; padding: 34px 20px 34px 12px; border-bottom: 1px solid var(--line-soft); }
-.market .seal { width: 92px; height: 92px; transition: transform 1.6s var(--ease); }
-.market .seal path { fill: none; stroke: var(--gold); stroke-width: .7; vector-effect: non-scaling-stroke; }
+.market { display: grid; grid-template-columns: 116px minmax(0, 4fr) minmax(0, 6fr); gap: 16px 40px; align-items: center; padding: 34px 20px 34px 12px; border-bottom: 1px solid var(--line-soft); }
+.market .seal { width: 116px; height: 116px; transition: transform 1.6s var(--ease); }
+.market .seal path { fill: none; stroke: var(--gold); stroke-width: .55; }
 .js .market .seal path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 2.2s var(--ease); transition-delay: calc(var(--i, 0) * 110ms + var(--k, 0) * 60ms); }
 .js .market.in .seal path { stroke-dashoffset: 0; }
 .market h3 { font-size: clamp(2rem, 3.6vw, 3.1rem); transition: transform .6s var(--ease), color .4s; }
 .market p { color: var(--muted); max-width: 34em; transition: color .4s; }
-.market:hover .seal { transform: rotate(120deg) scale(1.08); }
+.market .seal .ring { transition: transform 1.6s var(--ease); }
+.market .seal .icon { transition: transform .7s var(--ease); }
+.market .seal .icon path { stroke: var(--gold-light); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.market .seal text { font-family: var(--display); font-size: 21px; font-weight: 600; fill: var(--gold-light); transition: opacity 1s var(--ease) 1.2s; }
+.js .market:not(.in) .seal text { opacity: 0; }
+.market:hover .seal .ring { transform: rotate(120deg); }
+.market:hover .seal .icon { transform: scale(1.12); }
 .market:hover h3 { transform: translateX(12px); color: var(--gold-light); }
 .market:hover p { color: var(--text); }
 @media (max-width: 760px) {
-  .market { grid-template-columns: 64px 1fr; align-items: start; padding-inline: 0; }
-  .market .seal { width: 64px; height: 64px; }
+  .market { grid-template-columns: 78px 1fr; align-items: start; padding-inline: 0; }
+  .market .seal { width: 78px; height: 78px; }
   .market p { grid-column: 2; }
 }
 

@@ -53,15 +53,39 @@
     });
   });
 
+  // Market seals: an engraved ring framing a symbol for that market.
   const seals = {
-    stocks: [{ R: 34, a: 9, n: 10, K: 6 }, { R: 16, a: 8, n: 5, K: 4 }],
-    forex: [{ R: 32, a: 11, n: 6, K: 8 }, { R: 14, a: 7, n: 3, K: 4 }],
-    commodities: [{ R: 34, a: 8, n: 14, K: 5 }, { R: 18, a: 10, n: 7, K: 5 }],
-    indices: [{ R: 33, a: 10, n: 8, K: 7 }, { R: 15, a: 9, n: 4, K: 6 }],
+    // three rising candlesticks and an up arrow
+    stocks: { ring: { R: 40, a: 5, n: 12, K: 5 }, icon: [
+      "M-15 0V19", "M-18.5 5h7v9h-7z", "M-2 -8V13", "M-5.5 -3h7v10h-7z", "M11 -16V6", "M7.5 -11h7v10h-7z",
+      "M14 -19l6 -6", "M15 -25h5v5" ] },
+    // two currencies changing hands
+    forex: { ring: { R: 40, a: 5, n: 8, K: 6 }, icon: [
+      "M-17 -17H15", "M10 -22l5 5l-5 5", "M17 19H-15", "M-10 14l-5 5l5 5" ],
+      text: [["$", -10, 8], ["€", 10, 8]] },
+    // a stack of bullion bars
+    commodities: { ring: { R: 40, a: 5, n: 16, K: 4 }, icon: [
+      "M-10 -3L-7 -14H7L10 -3Z", "M-21 11L-18 0H-4L-1 11Z", "M1 11L4 0H18L21 11Z",
+      "M-4 -10H4", "M-15 4H-7", "M7 4H15" ] },
+    // one line tracking a whole market
+    indices: { ring: { R: 40, a: 5, n: 10, K: 5 }, icon: [
+      "M-20 -19V18H21", "M-14 10L-6 1L1 7L9 -6L17 -13", "M12 -13h5v5",
+      "M-14 18V14", "M-6 18V8", "M1 18V12", "M9 18V2", "M17 18V-4" ] },
   };
   document.querySelectorAll("[data-seal]").forEach((svg) => {
+    const def = seals[svg.dataset.seal] || seals.stocks;
     let count = 0;
-    (seals[svg.dataset.seal] || seals.stocks).forEach((band) => bandPaths(svg, band, (p) => p.style.setProperty("--k", count++)));
+    const ring = svg.appendChild(el("g", { class: "ring" }));
+    bandPaths(ring, def.ring, (p) => p.style.setProperty("--k", count++));
+    const icon = svg.appendChild(el("g", { class: "icon" }));
+    def.icon.forEach((d) => {
+      const p = icon.appendChild(el("path", { d, pathLength: "1" }));
+      p.style.setProperty("--k", count++);
+    });
+    (def.text || []).forEach(([ch, x, y]) => {
+      const t = icon.appendChild(el("text", { x, y, "text-anchor": "middle" }));
+      t.textContent = ch;
+    });
   });
 
   // Footer strip, drawn twice as wide as it shows so it can loop seamlessly.
